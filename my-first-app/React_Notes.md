@@ -14,10 +14,51 @@ npx create-react-app my-app
 
 (for other methods go to the link)
 
-### JSX
-enables HTML-looking codes in JavaScript; JS knows wat to render
+## JSX
 
-### Components
+### JavaScript Expressions & ES6 Template Literals
+enables HTML-looking codes in JavaScript; JS knows what and where to render 
+
+import React from "react";
+import ReactDOM from "react-dom";
+
+const fName = "Angela";
+const lName = "Yu";
+const num = 7;
+
+ReactDOM.render(
+  <div>
+    <h1>Hello {fName + " " + lName}!</h1>
+    <p>Your lucky number is {num}</p>
+  </div>,
+  document.getElementById("root")
+);
+
+### HTML Global Attributes
+https://www.w3schools.com/tags/ref_standardattributes.asp
+
+NB! change to camelCase
+
+### React Styling
+
+import React from "react";
+import ReactDOM from "react-dom";
+
+const customStyle = {
+  color: "red",
+  fontSize: "20px",
+  border: "1px solid black"
+};
+
+customStyle.color = "blue";
+
+ReactDOM.render(
+  <h1 style={customStyle}>Hello World!</h1>,
+  document.getElementById("root")
+);
+
+
+## Components
 
 a function or a JS class
 
