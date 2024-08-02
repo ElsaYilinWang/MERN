@@ -62,6 +62,8 @@ ReactDOM.render(
 
 a function or a JS class
 
+Airbnb React/JSX Style Guide: https://github.com/airbnb/javascript/tree/master/react
+
 const GoalList = () => {
     return (
         <ul className="goal-list>
@@ -71,6 +73,35 @@ const GoalList = () => {
         </ul>
     );
 };
+
+## Import, Export and Modules
+
+calculator.js
+// omitting other codes
+export { add, multiply, subtract, divide };
+---------------------------
+index.js
+
+import React from "react";
+import ReactDOM from "react-dom";
+import { add, subtract, multiply, divide } from "./calculator";
+
+//Import the add, multiply, subtract and divide functions
+//from the calculator.js file.
+//If successful, your website should look the same as the Final.png
+
+ReactDOM.render(
+  <ul>
+    <li>{add(1, 2)}</li>
+    <li>{multiply(2, 3)}</li>
+    <li>{subtract(7, 2)}</li>
+    <li>{divide(5, 2)}</li>
+  </ul>,
+  document.getElementById("root")
+);
+
+
+
 
 ### Propos & rendering lists of data
 
@@ -90,6 +121,43 @@ const GoalList = props => {
         </ul>
     );
 };
+
+### props
+function Card(props){
+    return <div>
+    <h2>{props.name}</h2>
+    <p>{props.tel}</p>
+    <p>{props.email}</p>
+    </div>;
+}
+
+<Card name="Beyonce"
+      tel="+12345"
+      email="b#nowhere.com"
+/>
+
+### Mapping data to components
+
+https://codesandbox.io/p/sandbox/mapping-components-practice-completed-zl7747?file=%2Fsrc%2Fcomponents%2FApp.jsx
+
+
+### map(), filter() and reduce()
+map():
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+
+filter():
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+
+reduce():
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
+
+### Arrow function
+
+https://hacks.mozilla.org/2015/06/es6-in-depth-arrow-functions/
+
+var numbers = [5, 56, 6, 78, 90];
+
+const newNumbers = numbers.map( (x, y) => x * y);
 
 ### Handling Events
 
