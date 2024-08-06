@@ -49,7 +49,7 @@ const Input = props => {
         dispatch({
             type: 'TOUCH'
         });
-    }
+    };
 
     const element = props.element === 'input' ? (
     <input id={props.id} 
