@@ -16,7 +16,7 @@ const UpdatePlace = () => {
             </div>
         );
     }
-    return <form>
+    return <form className="place-form">
         <Input id="title"
                 element="input"
                 type="text"

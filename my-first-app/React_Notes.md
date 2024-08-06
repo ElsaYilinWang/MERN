@@ -159,28 +159,236 @@ var numbers = [5, 56, 6, 78, 90];
 
 const newNumbers = numbers.map( (x, y) => x * y);
 
-### Handling Events
+### Ternary operator , AND operator
 
+Ternary Operator: CONDITION ? DO IF TRUE : DO IF FALSE
 
-### Child-Parent communication
+AND operator: (Expression && Expression)
 
+### Declarative / Imperative Programming
+
+UI = function(State)
 
 ### Hooks
 
+useState returns [initial value, function]
 
-### State
+destructuring example:
 
-import {useState} from 'react';
+import React, { useState } from "react";
 
-const [courseGoals, setCourseGoals] = useState(
-    [
-        {id:'cg1', text:'AAA'},
-        {id:'cg2', text:'BBBBB'},
-        {id:'cg3', text:'CCC'},
-    ]
+function App() {
+  const [count, setCount] = useState(0);
+
+  function increase() {
+    setCount(count + 1);
+  }
+
+  function decrease() {
+    setCount(count - 1);
+  }
+
+  return (
+    <div className="container">
+      <h1>{count}</h1>
+      <button onClick={decrease}>-</button>
+      <button onClick={increase}>+</button>
+    </div>
+  );
+}
+
+export default App;
+
+### JS ES6 Objet & Array Destructuring
+
+practice.js
+
+const cars = [
+  {
+    model: "Honda Civic",
+    coloursByPopularity: ["black", "silver"],
+    speedStats: {
+      topSpeed: 140,
+      zeroToSixty: 8.5
+    }
+  },
+  {
+    model: "Tesla Model 3",
+    coloursByPopularity: ["red", "white"],
+    speedStats: {
+      topSpeed: 150,
+      zeroToSixty: 3.2
+    }
+  }
+];
+
+export default cars;
+--------------------
+index.js
+
+// import animals, { useAnimals } from "./data";
+
+// //Destructuring Arrays
+// // console.log(animals);
+// const [cat, dog] = animals;
+// // console.log(cat);
+
+// const [animal, makeSound] = useAnimals(cat);
+// console.log(animal);
+// makeSound();
+
+// //Destructuring Objects
+// // const { name, sound} = cat;
+// // const { name: catName, sound: catSound } = cat;
+// // const { name = "Fluffy", sound = "Purr" } = cat;
+// // const {feedingRequirements: {food, water} } = cat;
+// // console.log(food);
+
+// CHALLENGE: uncomment the code below and see the car stats rendered
+import React from "react";
+import ReactDOM from "react-dom";
+import cars from "./practice";
+
+const [honda, tesla] = cars;
+
+const {
+  speedStats: { topSpeed: hondaTopSpeed }
+} = honda;
+const {
+  speedStats: { topSpeed: teslaTopSpeed }
+} = tesla;
+
+const {
+  coloursByPopularity: [hondaTopColour]
+} = honda;
+const {
+  coloursByPopularity: [teslaTopColour]
+} = tesla;
+
+ReactDOM.render(
+  <table>
+    <tr>
+      <th>Brand</th>
+      <th>Top Speed</th>
+      <th>Top Colour</th>
+    </tr>
+    <tr>
+      <td>{tesla.model}</td>
+      <td>{teslaTopSpeed}</td>
+      <td>{teslaTopColour}</td>
+    </tr>
+    <tr>
+      <td>{honda.model}</td>
+      <td>{hondaTopSpeed}</td>
+      <td>{hondaTopColour}</td>
+    </tr>
+  </table>,
+  document.getElementById("root")
 );
 
-### Fetching user input
+
+
+### Handling Events
+
+import React, { useState } from "react";
+
+function App() {
+  const [headingText, setHeadingText] = useState("Hello");
+  const [isMousedOver, setMouseOver] = useState(false);
+
+  function handleClick() {
+    setHeadingText("Submitted");
+  }
+
+  function handleMouseOver() {
+    setMouseOver(true);
+  }
+
+  function handleMouseOut() {
+    setMouseOver(false);
+  }
+
+  return (
+    <div className="container">
+      <h1>{headingText}</h1>
+      <input type="text" placeholder="What's your name?" />
+      <button
+        style={{ backgroundColor: isMousedOver ? "black" : "white" }}
+        onClick={handleClick}
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}
+      >
+        Submit
+      </button>
+    </div>
+  );
+}
+
+export default App;
+
+
+### Forms
+
+import React, { useState } from "react";
+
+function App() {
+  const [name, setName] = useState("");
+  const [headingText, setHeading] = useState("");
+
+  function handleChange(event) {
+    console.log(event.target.value);
+    setName(event.target.value);
+  }
+
+  function handleClick(event) {
+    setHeading(name);
+
+    event.preventDefault();
+  }
+
+  return (
+    <div className="container">
+      <h1>Hello {headingText}</h1>
+      <form onSubmit={handleClick}>
+        <input
+          onChange={handleChange}
+          type="text"
+          placeholder="What's your name?"
+          value={name}
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+### Hooks vs Classes
+
+
+### Spread Operator
+
+Spread syntax (...)
+
+function sum(x, y, z) {
+  return x + y + z;
+}
+
+const numbers = [1, 2, 3];
+
+console.log(sum(...numbers));
+// Expected output: 6
+
+console.log(sum.apply(null, numbers));
+// Expected output: 6
+
+
+### Managing component tree
+
+
 
 
 
