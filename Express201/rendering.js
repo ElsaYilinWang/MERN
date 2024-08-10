@@ -4,7 +4,11 @@ const express = require('express');
 const app = express();
 
 const helmet = require('helmet');
-app.use(helmet());
+// If you get "Refused to load the script..." in the next lecture,
+// you need to tell Helmet to not load the contentSecurityPolicy
+app.use(helmet({
+    contentSecurityPolicy: false,
+}));
 
 // serve up static files
 app.use(express.static('public'));
