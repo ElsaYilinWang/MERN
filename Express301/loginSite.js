@@ -18,11 +18,22 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use((req, res, next)=>{
+    if(req.query.msg === 'fail'){
+        res.locals.msg = 'Sorry. This username and password combination does not exist.';
+    } else {
+        res.locals.msg = '';
+    }
+
+    // Send me on to the next piece of middleware!
+    next();
+})
+
 app.get('/',(req, res, next)=>{
     res.send("Sanity Check")
 });
 
-app.post('/process_login', (req, res, next)=>{
+app.post('/process_login',(req, res, next)=>{
     // req.body is made by urlencoded, which parses the http message for sent data!
     const password = req.body.password;
     const username = req.body.username;
@@ -34,14 +45,15 @@ app.post('/process_login', (req, res, next)=>{
         // res.cookie takes 2 args:
         // 1. name of the cookie
         // 2. value to set it to 
-        res.cookie('username', username)
+        res.cookie('username',username)
         // res.redirect takes 1 arg:
         // 1. Where to send the brower
         res.redirect('/welcome')
-    } else {
+    }else{
         // The "?" is a special character in a URL
-        res.json(req.body)
+        res.redirect('/login?msg=fail&test=hello')
     }
+    // res.json(req.body)
 });
 
 app.get('/welcome', (req, res, next)=>{
@@ -50,7 +62,55 @@ app.get('/welcome', (req, res, next)=>{
     res.render('welcome', {
         username:req.cookies.username
     })
-})
+});
+
+// app.param() - takes 2 args:
+// 1. param to look for in the route
+// 2. the callback to run (with the usuals)
+app.param('id', (req, res, next, id)=>{
+    console.log("Params called: ", id);
+    // if id has something to do with stories...
+    // if id has something to do with blog...
+    next();
+});
+
+// in a route, anytime something has a : in front it is a wildcard!
+// wildcard, will match anything in that slot
+app.get('/story/:id', (req, res, next)=>{
+    // the req.params object always exists
+    // it will have a property for each wildcard in the route
+    res.send(`<h1>Story ${req.params.storyId}</h1>`)
+    // res.send('<h1>Story 1</h1>')
+});
+
+// THIS WILL NEVER RUN, because it matches above (without next())
+// app.get('/story/:blogId',(req, res, next)=>{
+//     // the req.params object always exists
+//     // it will have a property for each wildcard in the route
+//     res.send(`<h1>Story ${req.params.storyId}</h1>`)
+//     // res.send('<h1>Story 1</h1>')
+// })
+
+app.get('/story/:storyId/:link', (req, res, next)=>{
+    // the req.params object always exists
+    // it will have a property for each wildcard in the route
+    res.send(`<h1>Story ${req.params.storyId} - ${req.params.link} </h1>`)
+    // res.send('<h1>Story 1</h1>')
+});
+
+// app.get('/story/1',(req, res, next)=>{
+//     res.send('<h1>Story 1</h1>')
+// })
+
+// app.get('/story/2',(req, res, next)=>{
+//     res.send('<h1>Story 2</h1>')
+// })
+
+// app.get('/story/3',(req, res, next)=>{
+//     res.send('<h1>Story 3</h1>')
+// })
+
+
 
 
 app.get('/logout', (req, res, next)=>{
