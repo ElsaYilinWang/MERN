@@ -109,6 +109,25 @@ app.get('/story/:storyId/:link', (req, res, next)=>{
 // app.get('/story/3',(req, res, next)=>{
 //     res.send('<h1>Story 3</h1>')
 // })
+app.get('/statement', (req, res, next)=>{
+    // hand off the file to the right user
+    // res.download - takes 3 args:
+    // 1. path
+    // 2. what you want to call the file when the user gets it (optional)
+    // 3. callback (which accepts an error)
+    const date = new Date();
+    // download will load in the window!
+    res.download(path.join(__dirname, 'userStatements/BankStatementChequing.png'), 'jimsStatement.png',(err)=>{
+        console.log(err);
+    })
+
+    // sendFile will load in the browser!
+    // res.sendFile(path.join(__dirname, 'userStatements/BankStatementChequing.png'),'jimsStatement.png')
+    // res.attachment takes 1 arg:
+    // 1. filename.
+    // all attachment does it set up the headers. It wont actually send the file.
+    // res.attachment(path.join(__dirname, 'userStatements/BankStatementChequing.png'))
+});
 
 
 
