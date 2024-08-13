@@ -2,6 +2,8 @@ const express = require('express');
 
 const bodyParser = require('body-parser');
 
+const mongoose = require('mongoose');
+
 const placesRoutes = require('./routes/place-routes');
 const usersRoutes = require('./routes/users-routes');
 const HttpError = require('./models/http-error');
@@ -28,4 +30,18 @@ app.use((error, req, res, next) => {
     res.join({message: error.message || 'An unknown error occurred!'});
 });
 
-app.listen(5000);
+// replace <password> with real password (myuser) !
+mongoose
+    .connect(
+        'mongodb+srv://myUser:myuser@cluster0.i9kn9.mongodb.net/'
+        )
+    .then(
+        () => {
+            app.listen(5000);
+        }
+    ).catch(
+        err => {
+            console.log(err);
+        }
+    );
+
