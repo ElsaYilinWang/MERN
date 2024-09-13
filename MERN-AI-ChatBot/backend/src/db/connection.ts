@@ -1,7 +1,9 @@
 import { connect, disconnect } from "mongoose";
 export default async function connectToDatabase(){
     try {
-        await connect(process.env.MONGODB_URL);
+        // Mongoose Connection String Options:
+        // You can also specify driver options in your connection string as parameters in the query string portion of the URI.
+        await connect(process.env.MONGODB_URL as string);
     } catch (error) {
         console.log(error);
         throw new Error("Cannot Connect to MongoDB")
