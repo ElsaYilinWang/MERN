@@ -1,7 +1,5 @@
-import express from "express";
-
-// set up an application
-const app = express();
+import app from "./app.js";
+import connectToDatabase from "./db/connection.js";
 
 // create routing
 
@@ -10,9 +8,6 @@ const app = express();
 // POST -
 // DELETE -
 
-
-// middleware
-app.use(express.json());
 
 
 app.put("/hello", (req, res, next) => {
@@ -37,4 +32,10 @@ app.delete("/user/:uid", (req, res, next) => {
 })
 
 // connections and listeners
-app.listen(5000, () => console.log("Server Open"));
+const PORT=process.env.PORT || 5000;
+connectToDatabase()
+  .then( () => {
+  app.listen(5000, () => console.log("Server Open & Connected To Database"))
+})
+  .catch((err) => console.log(err));
+

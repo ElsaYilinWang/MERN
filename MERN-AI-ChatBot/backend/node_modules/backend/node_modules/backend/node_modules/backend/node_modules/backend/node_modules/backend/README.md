@@ -9,3 +9,9 @@ It's a completely secure application using JWT Tokens, HTTP-Only Cookies, Signed
 
 Contributions are welcome
 
+# How to Start?
+
+# BACKEND
+- Setup Node, Express App with TypeScript
+- Integrate MongoDB Database Connection
+
